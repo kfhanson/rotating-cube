@@ -30,9 +30,9 @@ float calZ(int i, int j, int k){
 }
 
 void calculateForSurface(float cubeX, float cubeY, float cubeZ, int ch) {
-	X = calX(cubeX. cubeY, cubeZ);
-	Y = calY(cubeX. cubeY, cubeZ);
-	Z = calZ(cubeX. cubeY, cubeZ) + distance;
+	X = calX(cubeX, cubeY, cubeZ);
+	Y = calY(cubeX, cubeY, cubeZ);
+	Z = calZ(cubeX, cubeY, cubeZ) + distance;
 
 	ooz = 1/z;
 	xp = (int)(width/2 + K1 * ooz * X * 2);
@@ -52,11 +52,19 @@ int main(){
 	while(1){
 		memset(buffer, background, width*height);
 		memset(zBuffer, 0, width * height * 4);
-		for(float cubeX = - cube; cubeX < cube; cubeX += speed){
-			for(float cubeY = - cube; cubeY < cube; cubeY += speed){
+		float cubeX, cubeY;
+		for(cubeX = -cube; cubeX < cube; cubeX += speed){
+			for(cubeY = -cube; cubeY < cube; cubeY += speed){
 				calculateForSurface(cubeX, cubeY, -cube, '#');
 			}
 		}
+		printf("\x1b[H");
+		int k;
+		for(k = 0; k < width * height; k++){
+			putchar(k % width ? buffer[k] : 10);
+		}
+		x += 0.005;
+		y += 0.005;
 	}
 	return 0;
 }
