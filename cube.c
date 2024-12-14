@@ -10,8 +10,8 @@ int height = 44;
 float zBuffer[160*44];
 char buffer[160*44];
 int background = ' ';
-float distance; //distance from cam
-float speed; //increment speed
+float distance = 60; //distance from cam
+float speed = 0.6; //increment speed
 float ooz;
 int xp, yp;
 float K1 = 40;
@@ -52,15 +52,13 @@ int main(){
 	while(1){
 		memset(buffer, background, width*height);
 		memset(zBuffer, 0, width * height * 4);
-		float cubeX, cubeY;
-		for(cubeX = -cube; cubeX < cube; cubeX += speed){
-			for(cubeY = -cube; cubeY < cube; cubeY += speed){
+		for(float cubeX = - cube; cubeX < cube; cubeX += speed){
+			for(float cubeY = - cube; cubeY < cube; cubeY += speed){
 				calculateForSurface(cubeX, cubeY, -cube, '#');
 			}
 		}
 		printf("\x1b[H");
-		int k;
-		for(k = 0; k < width * height; k++){
+		for(int k = 0; k < width * height; k++){
 			putchar(k % width ? buffer[k] : 10);
 		}
 		x += 0.005;
