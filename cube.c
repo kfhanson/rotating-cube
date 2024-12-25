@@ -4,13 +4,13 @@
 #include <string.h>
 
 float x, y, z, X, Y, Z;
-float cube = 10; //cube width
+float cube = 20; //cube width
 int width = 160;
 int height = 44;
 float zBuffer[160*44];
 char buffer[160*44];
-int background = ' ';
-float distance = 60; //distance from cam
+int background = '.';
+float distance = 100; //distance from cam
 float speed = 0.6; //increment speed
 float ooz;
 int xp, yp;
@@ -18,11 +18,11 @@ float K1 = 40;
 int idx;
 
 float calX(int i, int j, int k){
-	return j*sin(x)*sin(y)*cos(z)-k*cos(x)*sin(y)*cos(z)+k*sin(x)*sin(z)+j*cos(x)*sin(z)+i*cos(y)*cos(z);
+	return j*sin(x)*sin(y)*cos(z)-k*cos(x)*sin(y)*cos(z)+j*cos(x)*sin(z)+k*sin(x)*sin(z)+i*cos(y)*cos(z);
 }
 
 float calY(int i, int j, int k){
-	return k*sin(x)*cos(z)+j*cos(x)*cos(z)-j*sin(x)*sin(y)*sin(z)+k*cos(x)*sin(y)*sin(z)-i*cos(y)*sin(z);
+	return j*cos(x)*cos(z)+k*sin(x)*cos(z)-j*sin(x)*sin(y)*sin(z)+k*cos(x)*sin(y)*sin(z)-i*cos(y)*sin(z);
 }
 
 float calZ(int i, int j, int k){
