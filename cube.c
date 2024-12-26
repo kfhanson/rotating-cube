@@ -3,15 +3,16 @@
 #include <stdio.h>
 #include <string.h>
 
-float x, y, z, X, Y, Z;
-float cube = 20; //cube width
+float x, y, z;
+float cube = 10; //cube width
 int width = 160;
 int height = 44;
 float zBuffer[160*44];
 char buffer[160*44];
-int background = '.';
-float distance = 100; //distance from cam
+int background = ' ';
+float distance = 60; //distance from cam
 float speed = 0.6; //increment speed
+float X, Y, Z;
 float ooz;
 int xp, yp;
 float K1 = 40;
@@ -34,7 +35,7 @@ void calculateForSurface(float cubeX, float cubeY, float cubeZ, int ch) {
 	Y = calY(cubeX, cubeY, cubeZ);
 	Z = calZ(cubeX, cubeY, cubeZ) + distance;
 
-	ooz = 1/z;
+	ooz = 1/Z;
 	xp = (int)(width/2 + K1 * ooz * X * 2);
 	yp = (int)(height/2 + K1 * ooz * Y);
 
@@ -50,19 +51,23 @@ void calculateForSurface(float cubeX, float cubeY, float cubeZ, int ch) {
 int main(){
 	printf("\x1b[2J");
 	while(1){
+		float cubeX, cubeY;
+		int k;
 		memset(buffer, background, width*height);
 		memset(zBuffer, 0, width * height * 4);
-		for(float cubeX = - cube; cubeX < cube; cubeX += speed){
-			for(float cubeY = - cube; cubeY < cube; cubeY += speed){
-				calculateForSurface(cubeX, cubeY, -cube, '#');
+		for(cubeX = - cube; cubeX < cube; cubeX += speed){
+			for(cubeY = - cube; cubeY < cube; cubeY += speed){
+				calculateForSurface(cubeX, cubeY, -cube, '$');
 			}
 		}
 		printf("\x1b[H");
-		for(int k = 0; k < width * height; k++){
+		for(k = 0; k < width * height; k++){
 			putchar(k % width ? buffer[k] : 10);
 		}
 		x += 0.005;
 		y += 0.005;
+		usleep(1000);
+		
 	}
 	return 0;
 }
