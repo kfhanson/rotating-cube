@@ -58,6 +58,11 @@ int main(){
 		for(cubeX = - cube; cubeX < cube; cubeX += speed){
 			for(cubeY = - cube; cubeY < cube; cubeY += speed){
 				calculateForSurface(cubeX, cubeY, -cube, '$');
+				calculateForSurface(cube, cubeY, cubeX, '%');
+				calculateForSurface(-cube, cubeY, -cubeX, '.');
+				calculateForSurface(-cubeX, cubeY, cube, '#');
+				calculateForSurface(cubeX, -cube, -cubeY, '*');
+				calculateForSurface(cubeX, cube, cubeY, 'F');
 			}
 		}
 		printf("\x1b[H");
